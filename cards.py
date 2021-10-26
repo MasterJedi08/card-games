@@ -41,7 +41,7 @@ def make_card(rank, suit):
     else:
         shorthand = '\033[31m' + shorthand + '\033[37m'
 
-    card = (rank, suit, name, shorthand)
+    card = (int(rank), suit, name, shorthand)
 
     return card
 
@@ -79,6 +79,18 @@ def draw(deck, hand):
         return None
     else:
         card = deck.pop(len(deck)-1)
+        hand.append(card)
+        
+    return deck, hand
+
+def top_draw(deck, hand):
+    """
+    draw card from 'top' of the deck and adds it to the hand, returns deck and hand
+    """
+    if len(deck) == 0:
+        return None
+    else:
+        card = deck.pop(0)
         hand.append(card)
         
     return deck, hand
