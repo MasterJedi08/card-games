@@ -104,11 +104,11 @@ def deal(deck, num):
 
     count_hand1 = 0
     count_hand2 = 0
-    while count_hand1 <= num and count_hand2 <= num:
+    while count_hand1 < num and count_hand2 < num:
         deck, hand1 = draw(deck, hand1)
         count_hand1 += 1
         deck, hand2 = draw(deck, hand2)
-        count_hand2 += 2
+        count_hand2 += 1
         # if count % 2 == 0:
         #     deck, hand1 = draw(deck, hand1)
         #     count += 1
