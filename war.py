@@ -166,8 +166,18 @@ def main():
         # flip over top card of each hand
         player_hand, player_card = cards.top_draw(player_hand, player_card)
         dealer_hand, dealer_card = cards.top_draw(dealer_hand, dealer_card)
-
         
+        print(type(player_card), type(player_card[0]), type(player_card[0][0]), '\n', '')
+
+        if type(player_card[0]) == list:            
+            print('player card: ', player_card, 'dealer card:', dealer_card)
+            print('case caught')
+            player_card = player_card[0]
+        if type(dealer_card[0]) == list:
+            print('player card: ', player_card, 'dealer card:', dealer_card)
+            print('case caught')
+            dealer_card = dealer_card[0]
+
         print('player card: ', player_card, 'dealer card:', dealer_card)
 
         # check which card is higher - if cards are equal: 'go to war'
