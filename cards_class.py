@@ -4,43 +4,47 @@ just learned classes in my Software Dev class, so lets try this with classes!!
 import random as rand
 
 class Card():
-    __slots__ = ['rank', 'suit', 'name', 'shorthand']
+    __slots__ = ['__rank', 'suit', 'name', '__shorthand']
 
-    def __init__(self, rank, suit):
-        self.rank = rank
+    def __init__(self, __rank, suit):
+        self.__rank = __rank
         self.suit = suit
         
-        if rank > 10:
-            if rank == 11:
+        if __rank > 10:
+            if __rank == 11:
                 self.name = 'Jack of ' + suit
                 stub = 'J'
-            elif rank == 12:
+            elif __rank == 12:
                 self.name = 'Queen of ' + suit
                 stub = 'Q'
-            elif rank == 13:
+            elif __rank == 13:
                 self.name = 'King of ' + suit
                 stub = 'K'
-            elif rank == 14:
+            elif __rank == 14:
                 self.name = 'Ace of ' + suit
                 stub = 'A'
             else:
-                self.name = str(rank) + ' of ' + suit
+                self.name = str(__rank) + ' of ' + suit
         
-        # if rank is alphabet -- take first letter
-        if rank == 10:
-            self.shorthand = str(rank) + suit[0]
+        # if __rank is alphabet -- take first letter
+        if __rank == 10:
+            self.__shorthand = str(__rank) + suit[0]
         else:
-            if rank > 10:
-                self.shorthand = ' ' + stub + suit[0]
+            if __rank > 10:
+                self.__shorthand = ' ' + stub + suit[0]
             else:
-                rank = str(rank)
-                self.shorthand = ' ' + rank[0] + suit[0]
+                __rank = str(__rank)
+                self.__shorthand = ' ' + __rank[0] + suit[0]
 
         # display colors in python terminal based on suit
         if suit == 'Spades' or suit == 'Clubs':
-            self.shorthand = '\033[34m' + self.shorthand + '\033[37m'
+            self.__shorthand = '\033[34m' + self.__shorthand + '\033[37m'
         else:
-            self.shorthand = '\033[31m' + self.shorthand + '\033[37m'
+            self.__shorthand = '\033[31m' + self.__shorthand + '\033[37m'
+
+    def __str__(self):
+        return self.__shorthand
+
 
 class Deck():
     __slots__ = ['cards', 'top_half', 'bottom_half']
@@ -74,6 +78,13 @@ class Deck():
             self.top_half = self.cards[:mid]
             self.bottom_half = self.cards[mid:length]
 
+    def print_deck(self):
+        """
+        prints all cards in deck
+        """
+        for card in self.cards:
+            print(card.__shorthand, end=' ')
+
 
 class Hand():
     __slots__ = ['cards', 'score']
@@ -101,6 +112,13 @@ class Hand():
             self.draw(self, deck)
             count_hand += 1
 
+    def print_hand(self):
+        """
+        prints all cards in hand
+        """
+        for card in self.cards:
+            print(card.__shorthand, end=' ')
+
 def main():
     """
     main function
@@ -110,8 +128,8 @@ if __name__ == '__main__':
     main()
 # deck = Deck()
 # for card in deck.cards:
-#         print(card.shorthand, end=' ')
+#         print(card.__shorthand, end=' ')
 # deck.shuffle()
 # print('shuffled:')
 # for card in deck.cards:
-#         print(card.shorthand, end=' ')
+#         print(card.__shorthand, end=' ')
