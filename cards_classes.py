@@ -9,23 +9,26 @@ class Card():
         
         if self.__rank > 10:
             if self.__rank == 11:
-                self.name = 'Jack of ' + self.__suit
+                self.__name = 'Jack of ' + self.__suit
             elif self.__rank == 12:
-                self.name = 'Queen of ' + self.__suit
+                self.__name = 'Queen of ' + self.__suit
             elif self.__rank == 13:
-                self.name = 'King of ' + self.__suit
+                self.__name = 'King of ' + self.__suit
             elif self.__rank == 14:
-                self.name = 'Ace of ' + self.__suit
+                self.__name = 'Ace of ' + self.__suit
             else:
-                self.name = str(self.__rank) + ' of ' + self.__suit
+                self.__name = str(self.__rank) + ' of ' + self.__suit
                 
-        
+    # def __repr__(self):
+    #     # longer version of printing the card is the full name
+    #     return self.__name
+      
     # how the card prints: shorthand -- 3 char rep of suit and rank
     def __str__(self):
         if self.__rank == 10:
-            rep_string = str(self.__rank[0]) + self.__suit[0] 
+            rep_string = str(self.__rank) + self.__suit[0] 
         else:
-            rep_string = ' ' + str(self.__rank[0]) + self.__suit[0]
+            rep_string = ' ' + str(self.__rank)[0] + self.__suit[0]
             
         # display colors in python terminal based on __suit
         if self.__suit == 'Spades' or self.__suit == 'Clubs':
@@ -56,4 +59,95 @@ class Card():
             if self.__rank > other.__rank:
                 return self.__rank > other.__rank
         return False
-    
+
+class Deck():
+    __slots__ = ['__cards', '__length', '__top_half', '__bottom_half']
+
+    def __init__(self):
+        self.__cards = []
+        self.__length = 52
+        # top and bottom half are only used in specific games
+        self.__top_half = []
+        self.__bottom_half = []
+
+        # creates list of 52 playing cards
+        suit_list = ['Hearts', 'Diamonds', 'Spades', 'Clubs']
+        
+        for suit_val in suit_list:
+            for rank_num in range(2, 15):
+                card = Card(rank_num, suit_val)
+                self.__cards.append(card)
+                
+    def get_length(self):
+        return self.__length
+        
+    def __repr__(self):
+        """
+        prints all cards in deck
+        """
+        rep_string = ''
+        for card in self.__cards:
+            rep_string += card.__str__() + ' '
+            
+        return rep_string
+
+    def shuffle(self):
+        """
+        return shuffled deck
+        """
+        rand.shuffle(self.__cards)
+
+    def cut(self):
+        """
+        return cut halves of deck
+        """
+        if self.__length <= 1:
+            pass
+        else:
+            mid = self.__length // 2
+            self.__top_half = self.__cards[:mid]
+            self.__bottom_half = self.__cards[mid:self.__length]
+            
+    # draw card functions
+    def draw_card(self):
+        """
+        draw a card from deck
+        """
+        card = self.__cards.pop()
+        self.__length -= 1
+        
+        return card
+        
+    def draw_top(self):
+        """
+        draw a card from top half of deck
+        """
+        card = self.__cards.pop()
+        self.__length -= 1
+        
+        return card
+                
+    def draw_bottom(self):
+        """
+        draw a card from bottom half of deck
+        """
+        card = self.__cards.pop()
+        self.__length -= 1
+        
+        return card
+        
+deck = Deck()
+print(deck)
+deck.shuffle()
+print(deck)
+print(deck.draw_card())
+print(deck.draw_card())
+print(deck.draw_card())
+print(deck.draw_card())
+print(deck.draw_card())
+print(deck.draw_card())
+print(deck.draw_card())
+print(deck.draw_card())
+
+print(deck)
+print(deck.get_length())
