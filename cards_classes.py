@@ -135,19 +135,67 @@ class Deck():
         self.__length -= 1
         
         return card
-        
-deck = Deck()
-print(deck)
-deck.shuffle()
-print(deck)
-print(deck.draw_card())
-print(deck.draw_card())
-print(deck.draw_card())
-print(deck.draw_card())
-print(deck.draw_card())
-print(deck.draw_card())
-print(deck.draw_card())
-print(deck.draw_card())
 
-print(deck)
-print(deck.get_length())
+class Hand():
+    __slots__ = ['__cards', '__score']
+
+    def __init__(self):
+        self.__cards = []
+        self.__score = 0
+
+    def __repr__(self):
+        """
+        prints all cards in hand
+        """
+        rep_string = ''
+        for card in self.__cards:
+            rep_string += card.__str__() + ' '
+            
+        return rep_string
+
+    def __len__(self):
+        return len(self.__cards)
+
+    def deal_hand(self, deck, num):
+        """
+        deals a hand of num size from given deck
+        """
+        self.__cards = [deck.draw_card() for _ in range(num)]
+
+    def draw_card(self, index):
+        """
+        draws card at specified index and removes it from hand
+        """
+        try:
+            self.__cards.pop(index)
+            return self.__cards[index]
+        except:
+            # if index out of range, just return none
+            return None
+
+# MISC TESTING STUFF - NOT NEEDED
+#        
+# deck = Deck()
+# print(deck)
+# deck.shuffle()
+# print(deck)
+# print(deck.draw_card())
+# print(deck.draw_card())
+# print(deck.draw_card())
+# print(deck.draw_card())
+# print(deck.draw_card())
+# print(deck.draw_card())
+# print(deck.draw_card())
+# print(deck.draw_card())
+
+# print(deck)
+# print(deck.get_length())
+
+# print(' ------------------------------------------- ')
+# hand = Hand()
+# hand.deal_hand(deck, 5)
+# print(hand)
+# print(hand.draw_card(0))
+# print(hand)
+# print(hand.draw_card(8))
+# print(len(hand))
