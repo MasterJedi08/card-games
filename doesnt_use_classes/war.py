@@ -1,5 +1,7 @@
 '''
 text-based simulator of the game 'war' against computer
+
+CURRENTLY NOT WORKING COMPLETELY
 '''
 import cards
 
