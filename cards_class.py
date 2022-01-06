@@ -60,6 +60,9 @@ class Card():
                 return self.__rank > other.__rank
         return False
 
+    def get_rank(self):
+        return self.__rank
+
 class Deck():
     __slots__ = ['__cards', '__length', '__top_half', '__bottom_half']
 
@@ -78,7 +81,7 @@ class Deck():
                 card = Card(rank_num, suit_val)
                 self.__cards.append(card)
                 
-    def get_length(self):
+    def __len__(self):
         return self.__length
         
     def __repr__(self):
@@ -90,6 +93,9 @@ class Deck():
             rep_string += card.__str__() + ' '
             
         return rep_string
+
+    def get_bottom(self):
+        return self.__bottom_half
 
     def shuffle(self):
         """
@@ -156,11 +162,29 @@ class Hand():
     def __len__(self):
         return len(self.__cards)
 
+    def add_score(self, added):
+        self.__score += added
+
+    def modify_score(self, new_score):
+        self.__score = new_score
+
+    def get_score(self):
+        return self.__score
+
+    def get_cards(self):
+        return self.__cards
+
     def deal_hand(self, deck, num):
         """
         deals a hand of num size from given deck
         """
         self.__cards = [deck.draw_card() for _ in range(num)]
+
+    def deal_hand_bottom(self, deck, num):
+        """
+        deals a hand of num size from given deck
+        """
+        self.__cards = [deck.draw_bottom() for _ in range(num)]
 
     def draw_card(self, index):
         """
@@ -172,6 +196,9 @@ class Hand():
         except:
             # if index out of range, just return none
             return None
+
+    def add_card(self, deck):
+        self.__cards.append(deck.draw_card())
 
 # MISC TESTING STUFF - NOT NEEDED
 #        
